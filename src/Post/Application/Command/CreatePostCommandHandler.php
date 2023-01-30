@@ -16,11 +16,12 @@ class CreatePostCommandHandler implements CommandHandler
     }
 
     public function __invoke(CreatePostCommand $command): void
-    {
+    {           
         $post = Post::new(
             id: $command->id,
             title: $command->title,
             summary: $command->summary,
+            description: $command->description,
         );
         $this->repository->save($post);
     }

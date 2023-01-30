@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Uid\Uuid;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 #[Route(path: '/posts', methods: ['POST'])]
 class CreatePostController
@@ -24,11 +25,15 @@ class CreatePostController
     public function __invoke(Request $request): JsonResponse
     {
         $payload = $request->toArray();
-
+        
+        if (str_starts_with(strtolower($payload['title']), 'qwerty')) {
+            throw new BadRequestHttpException('Title shouldn\'t start with Qwerty');
+        }
         $command = new CreatePostCommand(
             id: $payload['id'] ?? (string)Uuid::v4(),
             title: $payload['title'],
             summary: $payload['summary'],
+            description: $payload['description'],
         );
 
         try {

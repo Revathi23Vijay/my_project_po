@@ -25,3 +25,6 @@ history
 composer install
 exitr
 exit
+exit
+composer require symfony/serializer
+exit

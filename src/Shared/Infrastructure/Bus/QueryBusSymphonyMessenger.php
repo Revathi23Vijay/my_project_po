@@ -26,7 +26,7 @@ class QueryBusSymphonyMessenger implements QueryBus
      *
      * @return Response|null
      */
-    public function ask(Query $query): Response|null
+    public function ask(Query $query)
     {
         return $this->handleQuery($query);
     }
